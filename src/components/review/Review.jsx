@@ -33,7 +33,7 @@ function Review() {
     }, [])
 
     return (
-        <section>
+        <section className={cart.length === 0 && 'mySection'}>
             <div className="container">
                 <div className="row">
                     <div className="col-md-8">

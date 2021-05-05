@@ -1,0 +1,15 @@
+.myNav a {
+    color: #ddd !important;
+}
+.navLink a:hover, button:hover {
+    border: 1px solid white;
+    background: white !important;
+    color: darkblue !important;
+    transition: .3s ease-in-out;
+}
+.navLink button {
+    background: 0;
+    border: 0;
+    color: #ddd;
+    padding: 0;
+}

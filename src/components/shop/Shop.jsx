@@ -1,32 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager'
-// import './shop.css'
+import React, { useContext, useEffect, useState } from 'react'
 import Products from '../products/Products'
+import { addToDatabaseCart } from '../../utilities/databaseManager'
 import Spinner from '../Spinner'
-import Cart from '../cart/Cart'
-import { Link } from 'react-router-dom'
+import './shop.css'
+import { CartContext } from '../../App'
 
 function Shop() {
     const [products, setProducts] = useState([])
-    const [cart, setCart] = useState([])
+    const [cart, setCart] = useContext(CartContext)
+    let product = products.slice(0, 19)
 
     useEffect(() => {
         fetch('https://re-commerce-backend.herokuapp.com/products')
             .then(res => res.json())
             .then(data => setProducts(data))
-    }, [])
-    useEffect(() => {
-        const savedCart = getDatabaseCart()
-        const productKeys = Object.keys(savedCart)
-        fetch('https://re-commerce-backend.herokuapp.com/productsByKeys', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(productKeys)
-        })
-            .then(res => res.json())
-            .then(data => setCart(data))
     }, [])
     const handleAddProduct = (product) => {
         const toBeAddedKey = product.key
@@ -48,29 +35,18 @@ function Shop() {
     }
 
     return (
-        <section>
+        <section className={products.length === 0 && 'mySection'}>
             <div className="container">
                 <div className="row">
-                    <div className="col-md-8">
-                        <div>
-                            {products.length === 0 && <Spinner />}
-                            {
-                                products.map(product => <Products
-                                    key={product.key}
-                                    product={product}
-                                    addToCart={true}
-                                    handleAddProduct={handleAddProduct}
-                                />)
-                            }
-                        </div>
-                    </div>
-                    <div className="col-md-4">
-                        <div className="cart">
-                            <Cart cart={cart}>
-                                <Link to="/review"><button className="cardBtn">Review Order</button></Link>
-                            </Cart>
-                        </div>
-                    </div>
+                    {products.length === 0 && <Spinner />}
+                    {
+                        product.map(product => <Products
+                            key={product.key}
+                            product={product}
+                            addToCart={true}
+                            handleAddProduct={handleAddProduct}
+                        />)
+                    }
                 </div>
             </div>
         </section>
