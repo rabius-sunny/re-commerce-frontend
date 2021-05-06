@@ -19,8 +19,10 @@ function Header() {
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className={`nav-item ms-3 ${classes.navLink}`}>
                                 <Link to="/shop">
-                                    <span>Hello, Sign in</span>
-                                    <br /> <span><b>Your Account</b></span>
+                                    <button>
+                                        <span>Hello, Sign in </span>
+                                        <br /><span><b>Your Account</b></span>
+                                    </button>
                                 </Link>
                             </li>
                             <li className={`nav-item ms-3 ${classes.navLink}`}>
@@ -35,7 +37,12 @@ function Header() {
                                 />
                             </li>
                             <li className={`nav-item ms-3 ${classes.navLink}`}>
-                                <Link to="/inventory">Inventory</Link>
+                                <Link to="/inventory">
+                                    <button>
+                                        <span>Manage</span>
+                                        <br /><span><b>Inventory</b></span>
+                                    </button>
+                                </Link>
                             </li>
                         </ul>
                     </div>
